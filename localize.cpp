@@ -10,6 +10,7 @@
 #include <fstream>
 #include <iterator>
 #include <algorithm>
+#include "estruturas.cpp"
 
 using namespace std;
 

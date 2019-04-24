@@ -9,34 +9,51 @@ using std::string;
 using std::vector;
 using namespace std;
 
-struct Carro
-{   
-    string modelo;    
-    string codigo;
-    string descricao;
-    float valorAluguel;
-    int quantidadeDisponivel;
-    int quantidadePassageiros;
-
-};
-struct Loja
-{
+// estrutura das lojas
+struct store {
 	string nome;
+	vector<string> cidades; // coleção de cidades onde a loja trabalha
+	store(string newnome, vector<string> newcidades): 
+		nome(newnome),
+		cidades(newcidades) {}
 };
 
-struct Cidade
-{
-    String nome;
-    string loja;
-    vector<Carro> carros;
+// estrutura dos carros
+struct car {
+	string codigo;
+	string modelo;
+	int quantidade;
+	int capacidade;
+	float diaria;
+	int categoria; // 0 para normal e 1 para luxo
+	string nome_loja;
+	string cidade_local; // cidade onde o veículo está localizado no momento
+	car(string newcodigo, string newmodelo, int newquantidade, int newcapacidade, float newdiaria, int newcategoria, string newnome_loja, string newcidade_local): 
+		codigo(newcodigo),
+		modelo(newmodelo),
+		quantidade(newquantidade),
+		capacidade(newcapacidade),
+		diaria(newdiaria),
+		categoria(newcategoria),
+		nome_loja(newnome_loja),
+		cidade_local(newcidade_local) {}
 };
 
-struct Usuario
-{
-    string cpf;
-    string nome;
-    string cnh;
-    int quantidadeAlugado;
-    vector<Carro> carrosAlugados;
-    
+// estrutura do aluguel
+struct rent {
+	int codigo_usuario;
+	car veiculo;
+	string cidade_destino;
+};
+
+struct client {
+	string nome;
+	string cpf;
+	string cnh;
+	int numero_aluguel;
+	vector<rent> locacoes;
+	client(string newnome, string newcpf, string newcnh): 
+		nome(newnome),
+		cpf(newcpf),
+		cnh(newcnh) {}
 };

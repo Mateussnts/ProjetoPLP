@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
 #include <vector>
@@ -28,8 +28,8 @@ struct car {
 	int categoria; // 0 para normal e 1 para luxo
 	string nome_loja;
 	string cidade_local; // cidade onde o veículo está localizado no momento
-	boolean alugado;
-	car(string newcodigo, string newmodelo, int newquantidade, int newcapacidade, float newdiaria, int newcategoria, string newnome_loja, string newcidade_local, boolean alugado):
+	
+	car(string newcodigo, string newmodelo, int newquantidade, int newcapacidade, float newdiaria, int newcategoria, string newnome_loja, string newcidade_local):
 		codigo(newcodigo),
 		modelo(newmodelo),
 		quantidade(newquantidade),
@@ -37,8 +37,7 @@ struct car {
 		diaria(newdiaria),
 		categoria(newcategoria),
 		nome_loja(newnome_loja),
-		cidade_local(newcidade_local),
-		alugado(false){}
+		cidade_local(newcidade_local){}
 };
 
 // estrutura do aluguel

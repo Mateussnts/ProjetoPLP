@@ -70,9 +70,11 @@ void pesquisa() {
 	int qtdPassageiros;
 
 	cout << "Informe a cidade de saída: " << endl;
+	cin.ignore();
 	getline(cin, cidadeSaida);
 	
 	cout<<"Informa a cidade de destino: "<< endl;
+	cin.ignore();
 	getline(cin, cidadeDestino);
 	
 	cout<< "Informe a quantidade de Passageiros: " << endl;
@@ -89,7 +91,7 @@ void pesquisa() {
 }
 
 // encontrar veiculo utilizando codigo
-
+/*
 vector<car> pesquisarPorCodigo(string codigo){
 	vector<car> veiculos = inicializa_veiculos();
 	vector<car> veiculo;
@@ -101,8 +103,10 @@ vector<car> pesquisarPorCodigo(string codigo){
 	}
 	return veiculo;
 }
+*/
 
 // método para alugar carros
+/*
 void alugar(){
 	string codigo;
 	int diarias;
@@ -113,14 +117,16 @@ void alugar(){
 	}
 	veiculo.alugado = true;
 }
+*/
 
 // método para devolver carros alugados
+/*
 void devolver(){
 	string codigo;
 	vector<car> veiculo = pesquisarPorCodigo(codigo);
 	veiculo.alugado = false;
 }
-
+*/
 
 //método de apresentacao do sistema e opcoes
 void apresentacao(){
@@ -151,12 +157,12 @@ void apresentacao(){
         }
         else if (opcao == 2)
         {
-			alugar();
+			//alugar();
 			break;
         }
         else if (opcao == 3)
         {
-			devolver();
+			//devolver();
 			break;
         }
 		else if (opcao == 4)

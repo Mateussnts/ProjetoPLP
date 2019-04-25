@@ -114,6 +114,13 @@ void alugar(){
 	veiculo.alugado = true;
 }
 
+// método para devolver carros alugados
+void devolver(){
+	string codigo;
+	vector<car> veiculo = pesquisarPorCodigo(codigo);
+	veiculo.alugado = false;
+}
+
 
 //método de apresentacao do sistema e opcoes
 void apresentacao(){

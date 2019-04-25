@@ -88,6 +88,21 @@ void pesquisa() {
 
 }
 
+// encontrar veiculo utilizando codigo
+
+vector<car> pesquisarPorCodigo(string codigo){
+	vector<car> veiculos = inicializa_veiculos();
+	vector<car> veiculo;
+
+	for (int i = 0; i< veiculos.size(); i++){
+		if (codigo == veiculos[i].codigo){
+			veiculo = veiculos[i];
+		}
+	}
+	return veiculo;
+}
+
+
 //método de apresentacao do sistema e opcoes
 void apresentacao(){
 

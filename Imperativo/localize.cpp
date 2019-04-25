@@ -1,6 +1,4 @@
-﻿
-
-#include <iostream>
+﻿#include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
 #include <vector>
@@ -62,6 +60,35 @@ vector<car> inicializa_veiculos() {
 	}
 	return veiculos;
 }
+
+// metodo de pesquisa para aluguel de carros
+
+void pesquisa() {
+	
+	string cidadeSaida;
+	string cidadeDestino;
+	int qtdPassageiros;
+
+	cout << "Informe a cidade de saída: " << endl;
+	cin>> cidadeSaida;
+	
+	cout<<"Informa a cidade de destino: "<< endl;
+	cin>> cidadeDestino;
+	
+	cout<< "Informe a quantidade de Passageiros: " << endl;
+	cin >> qtdPassageiros;
+
+	vector<car> veiculos = inicializa_veiculos();
+
+	for (int i = 0; i < veiculos.size(); i++){
+		if(cidadeSaida == veiculos[i].cidade_local){
+		cout << "veículo: " << veiculos[i].modelo << " codigo: " << veiculos[i].codigo << " valor da diária: " << veiculos[i].diaria << endl;
+		}
+	}	
+
+}
+
+//método de apresentacao do sistema e opcoes
 void apresentacao(){
 
 	while(true){
@@ -71,7 +98,7 @@ void apresentacao(){
         cout << "██████╔╝█████╗  ██╔████╔██║    ██║   ██║██║██╔██╗ ██║██║  ██║██║   ██║"<<endl;
         cout << "██╔══██╗██╔══╝  ██║╚██╔╝██║    ╚██╗ ██╔╝██║██║╚██╗██║██║  ██║██║   ██║"<<endl;
         cout << "██████╔╝███████╗██║ ╚═╝ ██║     ╚████╔╝ ██║██║ ╚████║██████╔╝╚██████╔╝"<<endl;
-		cout << "╚═════╝ ╚══════╝╚═╝     ╚═╝      ╚═══╝  ╚═╝╚═╝  ╚═══╝╚═════╝  ╚═════╝ "<<endl;
+	cout << "╚═════╝ ╚══════╝╚═╝     ╚═╝      ╚═══╝  ╚═╝╚═╝  ╚═══╝╚═════╝  ╚═════╝ "<<endl;
         cout << "À LOCALIZE CAR"<<endl;
         cout<<" "<<endl;
         cout << "COMO VOCÊ DESEJA SEGUIR?"<<endl;
@@ -82,15 +109,16 @@ void apresentacao(){
 
         cin >> opcao;
 
-        if (opcao == 3)
+        if (opcao == 1)
         {
-            break;
-        }
-        else if (opcao == 1)
-        {
-            break;
+           pesquisa();
+	   break;
         }
         else if (opcao == 2)
+        {
+           break;
+        }
+        else if (opcao == 3)
         {
            break;
         }
@@ -103,47 +131,14 @@ void apresentacao(){
 	
 }
 
-// metodo de pesquisa para aluguel de carros
 
-void pesquisa() {
-	
-	string cidadeSaida;
-	cout << "Informe a cidade de saída!" << endl;
-	getline(cin, cidadeSaida);
-	
-	int qtdPassageiros;
-	cout << "Informe a quantidade de Passageiros!" << endl;
-	cin >> qtdPassageiros;
 
-	vector<string> carrosDisponiveis;
-	vector<car> veiculos = inicializa_veiculos();
 
-	for (i = 0; i < veiculos.size(); i++)
-	{
-		if (veiculos[i].cidade_local == cidadeSaida && veiculos[i].capacidade == qtdPassageiros {
-			carrosDisponiveis.push_back(veiculos[i].modelo + veiculos[i].cidade_local + veiculos[i].capacidade);
-		}
-	}
-	
-	if (carrosDisponiveis.empty() == true) {
-		std::cout << "Não existe carros disponiveis no momento!" << endl;
-	}
-	else{
-		int j;
-		for (j = 0; j < carrosDisponiveis.size(); j++)
-		{
-			std::cout << carrosDisponiveis[j] << endl;
-		}
-	}
-}
-
-void apresentacao();
-void pesquisa();
 
 int main()
 {
 	 apresentacao();
-	 pesquisa();
+	
 
 	// carrega o nome das cidades do sistema
 	vector<string> cidades {"João Pessoa", "Campina Grande", "Patos", "Souza", "Cajazeiras", "Guarabira", "Cabedelo", "Santa Rita", "Monteiro", "Sumé"};

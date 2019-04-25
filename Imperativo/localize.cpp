@@ -70,10 +70,10 @@ void pesquisa() {
 	int qtdPassageiros;
 
 	cout << "Informe a cidade de saída: " << endl;
-	cin>> cidadeSaida;
+	getline(cin, cidadeSaida);
 	
 	cout<<"Informa a cidade de destino: "<< endl;
-	cin>> cidadeDestino;
+	getline(cin, cidadeDestino);
 	
 	cout<< "Informe a quantidade de Passageiros: " << endl;
 	cin >> qtdPassageiros;
@@ -136,26 +136,34 @@ void apresentacao(){
         cout << "À LOCALIZE CAR"<<endl;
         cout<<" "<<endl;
         cout << "COMO VOCÊ DESEJA SEGUIR?"<<endl;
-        cout << "(1) PESQUISAR/ALUGAR"<<endl;
-        cout << "(2) DEVOLVER"<<endl;
-        cout << "(3) SAIR" <<endl;
+        cout << "(1) PESQUISAR"<<endl;
+		cout << "(2) ALUGAR" << endl;
+        cout << "(3) DEVOLVER"<<endl;
+        cout << "(4) SAIR" <<endl;
     	int opcao;
 
         cin >> opcao;
 
         if (opcao == 1)
         {
-           pesquisa();
-	   break;
+			pesquisa();
+			break;
         }
         else if (opcao == 2)
         {
-           break;
+			alugar();
+			break;
         }
         else if (opcao == 3)
         {
-           break;
+			devolver();
+			break;
         }
+		else if (opcao == 4)
+		{
+			cout << "Você esta saindo da Localize Car..." << endl;
+			break;
+		}
         else
         {
             cout << "SELECIONE UMA OPÇAO VALIDA!"<<endl;
@@ -164,10 +172,6 @@ void apresentacao(){
     }
 	
 }
-
-
-
-
 
 int main()
 {

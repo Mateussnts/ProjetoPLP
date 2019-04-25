@@ -102,6 +102,18 @@ vector<car> pesquisarPorCodigo(string codigo){
 	return veiculo;
 }
 
+// método para alugar carros
+void alugar(){
+	string codigo;
+	int diarias;
+
+	vector<car> veiculo = pesquisarPorCodigo(codigo);
+	if (veiculo != NULL){
+		cout << "O veículo informado não está disponível na Localize" << endl;
+	}
+	veiculo.alugado = true;
+}
+
 
 //método de apresentacao do sistema e opcoes
 void apresentacao(){

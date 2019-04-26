@@ -52,7 +52,7 @@ string to_lower(string input) {
 // Se não existir loja com o nome informado, retorna uma loja fake que pode ser identificada pelo nome de "Sem Loja"
 store get_loja_por_nome(string nome_loja, vector<store> lojas) {
 	for(unsigned int i = 0; i < lojas.size(); i++) {
-		if(nome_loja == lojas[i].nome) {
+		if(to_lower(nome_loja) == to_lower(lojas[i].nome)) {
 			return lojas[i];
 		}
 	}
@@ -92,15 +92,16 @@ car get_veiculo_por_codigo(string codigoVeiculo, vector<car> veiculos) {
 // pesquisa/retorna um carro informando seu modelo e a cidade onde ele está
 // se não existir carro com o modelo e cidade informados, retorna um carro fake que pode ser identificada pelo código "0"
 // ou nome de "Sem Veiculo"
-car get_veiculo_por_modelo(string modelo, string cidadeLocal, vector<car> veiculos) {
+car get_veiculo_por_modelo(string modelo, string cidadeLocal, store loja, vector<car> veiculos) {
 	for(unsigned int i = 0; i < veiculos.size(); i++) {
-		if(modelo == veiculos[i].modelo && cidadeLocal == veiculos[i].cidade_local) {
+		if(to_lower(modelo) == to_lower(veiculos[i].modelo) && to_lower(cidadeLocal) == to_lower(veiculos[i].cidade_local) && 
+			to_lower(loja.nome) == to_lower(veiculos[i].loja.nome)) {
 			return veiculos[i];
 		}
 	}
 	vector<string> cidades;
-	store loja = store("Sem Loja", cidades);
-	car veiculo = car("0","Sem Veiculo", 0, 0, 0, "", loja, "");
+	store lojatemp = store("Sem Loja", cidades);
+	car veiculo = car("0","Sem Veiculo", 0, 0, 0, "", lojatemp, "");
 	return veiculo;
 }
 
@@ -157,31 +158,28 @@ vector<car> inicializa_veiculos(vector<store> lojas) {
 void apresentacao() {
 	cout << endl;
 	cout << "██████╗ ███████╗███╗   ███╗    ██╗   ██╗██╗███╗   ██╗██████╗  ██████╗ "<< endl;
-    	cout << "██╔══██╗██╔════╝████╗ ████║    ██║   ██║██║████╗  ██║██╔══██╗██╔═══██╗"<< endl;
-   	 cout << "██████╔╝█████╗  ██╔████╔██║    ██║   ██║██║██╔██╗ ██║██║  ██║██║   ██║"<< endl;
-    	cout << "██╔══██╗██╔══╝  ██║╚██╔╝██║    ╚██╗ ██╔╝██║██║╚██╗██║██║  ██║██║   ██║"<< endl;
-    	cout << "██████╔╝███████╗██║ ╚═╝ ██║     ╚████╔╝ ██║██║ ╚████║██████╔╝╚██████╔╝"<< endl;
+	cout << "██╔══██╗██╔════╝████╗ ████║    ██║   ██║██║████╗  ██║██╔══██╗██╔═══██╗"<< endl;
+	cout << "██████╔╝█████╗  ██╔████╔██║    ██║   ██║██║██╔██╗ ██║██║  ██║██║   ██║"<< endl;
+	cout << "██╔══██╗██╔══╝  ██║╚██╔╝██║    ╚██╗ ██╔╝██║██║╚██╗██║██║  ██║██║   ██║"<< endl;
+	cout << "██████╔╝███████╗██║ ╚═╝ ██║     ╚████╔╝ ██║██║ ╚████║██████╔╝╚██████╔╝"<< endl;
 	cout << "╚═════╝ ╚══════╝╚═╝     ╚═╝      ╚═══╝  ╚═╝╚═╝  ╚═══╝╚═════╝  ╚═════╝ "<< endl;
-    	cout << "À LOCALIZE CAR" << endl << endl;
-    
+	cout << "À LOCALIZE CAR" << endl << endl;
 }
 
 // menu principal
 void menu_principal() {
-	
-    	cout << "O que você deseja fazer?" << endl << endl;
-    	cout << "(1) Pesquisar/Alugar" << endl;
-    	cout << "(2) Devolver" << endl;
-    	cout << "(3) Sair" << endl << endl;
-    
+	cout << "O que você deseja fazer?" << endl << endl;
+	cout << "(1) Pesquisar/Alugar" << endl;
+	cout << "(2) Devolver" << endl;
+	cout << "(3) Sair" << endl << endl;
 }
 
 // menu de pesquisar e alugar
 void menu_pesquisar_alugar() {
 	cout << "Escolha a opção desejada?" << endl << endl;
-    	cout << "(1) Alugar" << endl;
-    	cout << "(2) Nova pesquisa" << endl;
-    	cout << "(3) Sair" << endl << endl;
+	cout << "(1) Alugar" << endl;
+	cout << "(2) Nova pesquisa" << endl;
+	cout << "(3) Sair" << endl << endl;
 }
 
 // metodo de pesquisa para aluguel de carros.
@@ -408,9 +406,11 @@ int main() {
 				
 				// captura o número do aluguel a devolver
 				unsigned int numero_locacao;
-				cout << "Informe o número do aluguel: ";
+				cout << "Informe o número do aluguel a devolver ou digite '0' para sair: ";
 				cin >> numero_locacao;
 				cin.ignore();
+				
+				if(numero_locacao == 0) continue;
 				
 				// testa se o número do aluguel é válido
 				if( numero_locacao < 1 || numero_locacao > get_client_por_codigo(codigoCliente, clientes).locacoes.size()) {
@@ -424,10 +424,10 @@ int main() {
 				int index_newveiculo;
 				
 				// verifica se a cidade destino tem o modelo a ser devolvido
-				if(get_veiculo_por_modelo(veiculos[index_veiculo].modelo, clientes[index_cliente].locacoes[numero_locacao-1].cidade_destino, veiculos).codigo != "0") {
+				if(get_veiculo_por_modelo(veiculos[index_veiculo].modelo, clientes[index_cliente].locacoes[numero_locacao-1].cidade_destino, veiculos[index_veiculo].loja, veiculos).codigo != "0") {
 					
 					// captura indice do veiculo da cidade destino
-					index_newveiculo = get_veiculo_indice(get_veiculo_por_modelo(veiculos[index_veiculo].modelo, clientes[index_cliente].locacoes[numero_locacao-1].cidade_destino, veiculos), veiculos);
+					index_newveiculo = get_veiculo_indice(get_veiculo_por_modelo(veiculos[index_veiculo].modelo, clientes[index_cliente].locacoes[numero_locacao-1].cidade_destino, veiculos[index_veiculo].loja, veiculos), veiculos);
 					
 					// incrementa a quantidade do veículo da cidade destino
 					veiculos[index_newveiculo].quantidade += 1;
@@ -438,7 +438,7 @@ int main() {
 					veiculos.emplace_back(get_novo_veiculo_codigo(veiculos), veiculos[index_veiculo].modelo, 1, veiculos[index_veiculo].capacidade, veiculos[index_veiculo].diaria, veiculos[index_veiculo].categoria, veiculos[index_veiculo].loja, clientes[index_cliente].locacoes[numero_locacao-1].cidade_destino);
 					
 					// captura indice do novo cveiculo da cidade destino
-					index_newveiculo = get_veiculo_indice(get_veiculo_por_modelo(veiculos[index_veiculo].modelo, clientes[index_cliente].locacoes[numero_locacao-1].cidade_destino, veiculos), veiculos);
+					index_newveiculo = get_veiculo_indice(get_veiculo_por_modelo(veiculos[index_veiculo].modelo, clientes[index_cliente].locacoes[numero_locacao-1].cidade_destino, veiculos[index_veiculo].loja, veiculos), veiculos);
 								
 				}
 				

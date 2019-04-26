@@ -15,10 +15,11 @@
 
 using namespace std;
 
-
-// função para extrair dados do csv. retorna um mapa contendo os dados do csv.
-// filename -> nome do arquivo csv
-// tamanho_item -> quantidade de itens de cada linha do csv
+/*
+ * Função para extrair dados do csv. retorna um mapa contendo os dados do csv.
+ * file_name representa o nome do arquivo csv
+ * tamanho_item representa a quantidade de itens de cada linha do csv
+ */
 vector<vector<string>> extract_csv( string file_name, int tamanho_item) {
 	
 	ifstream file (file_name);
@@ -40,6 +41,9 @@ vector<vector<string>> extract_csv( string file_name, int tamanho_item) {
 	return linhas;
 }
 
+/*
+ * Função responsavel por transformar um palavra de entrada em minuscula
+ */
 string to_lower(string input) {
 	for (unsigned int i = 0; i < input.length(); i++) {
 		input[i] = tolower(input[i]);
@@ -68,6 +72,11 @@ client get_client_por_codigo(string codigoCliente, vector<client> clientes) {
 	return cliente;
 }
 
+/*
+ * Função para encontrar um carro utilizando o seu código
+ * codigoVeiculo representa o código do veicula a ser procurado
+ * veiculos representa o array quer armazena os veículos cadastrados
+ */
 car get_veiculo_por_codigo(string codigoVeiculo, vector<car> veiculos) {
 	for(unsigned int i = 0; i < veiculos.size(); i++) {
 		if(codigoVeiculo == veiculos[i].codigo) {
@@ -80,6 +89,11 @@ car get_veiculo_por_codigo(string codigoVeiculo, vector<car> veiculos) {
 	return veiculo;
 }
 
+/*
+ * Função para encontrar o indice do cliente no array
+ * cliente representa o usuário a ser procurado
+ * clientes representa o array dos clientes cadastrados
+ */
 int get_client_indice(client cliente, vector<client> clientes) {
 	for(unsigned int i = 0; i < clientes.size(); i++) {
 		if(cliente.codigo == clientes[i].codigo) {
@@ -89,6 +103,11 @@ int get_client_indice(client cliente, vector<client> clientes) {
 	return -1;
 }
 
+/*
+ * Função para encontrar o indice do veiculo no array
+ * veiculo representa o veiculo a ser procurado
+ * veiculos representa o array dos veiculos cadastrados
+ */
 int get_veiculo_indice(car veiculo, vector<car> veiculos) {
 	for(unsigned int i = 0; i < veiculos.size(); i++) {
 		if(veiculo.codigo == veiculos[i].codigo) {
@@ -98,7 +117,9 @@ int get_veiculo_indice(car veiculo, vector<car> veiculos) {
 	return -1;
 }
 
-// converte os dados do csv de clientes em structs
+/*
+ * Função responsavel por converter os dados do csv de clientes em structs
+ */
 vector<client> inicializa_clientes() {
 	
 	vector<client> clientes;
@@ -110,7 +131,9 @@ vector<client> inicializa_clientes() {
 	return clientes;
 }
 
-// converte os dados do csv de veiculos em structs
+/*
+ * Função responsavel por converter os dados do csv de veiculos em structs
+ */
 vector<car> inicializa_veiculos(vector<store> lojas) {
 	
 	vector<car> veiculos;
@@ -125,29 +148,38 @@ vector<car> inicializa_veiculos(vector<store> lojas) {
 	return veiculos;
 }
 
+/*
+ * Tela inicial
+ */
 void apresentacao() {
 	cout << endl;
-	cout << "██████╗ ███████╗███╗   ███╗    ██╗   ██╗██╗███╗   ██╗██████╗  ██████╗ "<< endl;
-    cout << "██╔══██╗██╔════╝████╗ ████║    ██║   ██║██║████╗  ██║██╔══██╗██╔═══██╗"<< endl;
-    cout << "██████╔╝█████╗  ██╔████╔██║    ██║   ██║██║██╔██╗ ██║██║  ██║██║   ██║"<< endl;
-    cout << "██╔══██╗██╔══╝  ██║╚██╔╝██║    ╚██╗ ██╔╝██║██║╚██╗██║██║  ██║██║   ██║"<< endl;
-    cout << "██████╔╝███████╗██║ ╚═╝ ██║     ╚████╔╝ ██║██║ ╚████║██████╔╝╚██████╔╝"<< endl;
-	cout << "╚═════╝ ╚══════╝╚═╝     ╚═╝      ╚═══╝  ╚═╝╚═╝  ╚═══╝╚═════╝  ╚═════╝ "<< endl;
-    cout << "À LOCALIZE CAR" << endl << endl;
+	cout << "â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•— â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—â–ˆâ–ˆâ–ˆâ•—   â–ˆâ–ˆâ–ˆâ•—    â–ˆâ–ˆâ•—   â–ˆâ–ˆâ•—â–ˆâ–ˆâ•—â–ˆâ–ˆâ–ˆâ•—   â–ˆâ–ˆâ•—â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•— "<< endl;
+    cout << "â–ˆâ–ˆâ•”â•�â•�â–ˆâ–ˆâ•—â–ˆâ–ˆâ•”â•�â•�â•�â•�â•�â–ˆâ–ˆâ–ˆâ–ˆâ•— â–ˆâ–ˆâ–ˆâ–ˆâ•‘    â–ˆâ–ˆâ•‘   â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•‘â–ˆâ–ˆâ–ˆâ–ˆâ•—  â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•”â•�â•�â–ˆâ–ˆâ•—â–ˆâ–ˆâ•”â•�â•�â•�â–ˆâ–ˆâ•—"<< endl;
+    cout << "â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•”â•�â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—  â–ˆâ–ˆâ•”â–ˆâ–ˆâ–ˆâ–ˆâ•”â–ˆâ–ˆâ•‘    â–ˆâ–ˆâ•‘   â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•”â–ˆâ–ˆâ•— â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•‘  â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•‘   â–ˆâ–ˆâ•‘"<< endl;
+    cout << "â–ˆâ–ˆâ•”â•�â•�â–ˆâ–ˆâ•—â–ˆâ–ˆâ•”â•�â•�â•�  â–ˆâ–ˆâ•‘â•šâ–ˆâ–ˆâ•”â•�â–ˆâ–ˆâ•‘    â•šâ–ˆâ–ˆâ•— â–ˆâ–ˆâ•”â•�â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•‘â•šâ–ˆâ–ˆâ•—â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•‘  â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•‘   â–ˆâ–ˆâ•‘"<< endl;
+    cout << "â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•”â•�â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—â–ˆâ–ˆâ•‘ â•šâ•�â•� â–ˆâ–ˆâ•‘     â•šâ–ˆâ–ˆâ–ˆâ–ˆâ•”â•� â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•‘ â•šâ–ˆâ–ˆâ–ˆâ–ˆâ•‘â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•”â•�â•šâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•”â•�"<< endl;
+	cout << "â•šâ•�â•�â•�â•�â•�â•� â•šâ•�â•�â•�â•�â•�â•�â•�â•šâ•�â•�     â•šâ•�â•�      â•šâ•�â•�â•�â•�  â•šâ•�â•�â•šâ•�â•�  â•šâ•�â•�â•�â•�â•šâ•�â•�â•�â•�â•�â•�  â•šâ•�â•�â•�â•�â•�â•� "<< endl;
+    cout << "Ã€ LOCALIZE CAR" << endl << endl;
     
 }
 
+/*
+ * Menu principal
+ */
 void menu_principal() {
 	
-    cout << "O que você deseja fazer?" << endl << endl;
+    cout << "O que vocÃª deseja fazer?" << endl << endl;
     cout << "(1) Pesquisar/Alugar" << endl;
     cout << "(2) Devolver" << endl;
     cout << "(3) Sair" << endl << endl;
     
 }
 
+/*
+ * Opção 1 (Pesquisar/Alugar)
+ */
 void menu_pesquisar_alugar() {
-	cout << "Escolha a opção desejada?" << endl << endl;
+	cout << "Escolha a opÃ§Ã£o desejada?" << endl << endl;
     cout << "(1) Alugar" << endl;
     cout << "(2) Nova pesquisa" << endl;
     cout << "(3) Sair" << endl << endl;
@@ -155,6 +187,14 @@ void menu_pesquisar_alugar() {
 
 // metodo de pesquisa para aluguel de carros
 
+/*
+ * Metodo responsavel por pesquisar o aluguel de um carro
+ * cidade_retirada representa a cidade em que o veiculo está
+ * cidade_destino representa a cidade onde o veiculo sera devolvido
+ * qtdPassageiros representa quantos passageiros estarão no veiculo
+ * veiculos representa o array de veiculos cadastrados
+ * carrosDisponiveis retorna a quantidade de carros disponiveis
+ */
 vector<car> pesquisa(string cidade_retirada, string cidade_destino, int qtdPassageiros, vector<car> veiculos) {
 
 	vector<car> carrosDisponiveis;
@@ -178,6 +218,14 @@ vector<car> pesquisa(string cidade_retirada, string cidade_destino, int qtdPassa
 	
 }
 
+/*
+ * Metodo para alugar veiculos
+ * veiculo representa o carro a ser alugado
+ * cidade_destino representa onde o carro será devolvido
+ * diaria representa o preço da diaria do veiculo
+ * qtdDias representa a quantidade de dias que o veiculo será alugado
+ * aluguel retorna o valor que o cliente pagará
+ */
 rent alugar(car veiculo, string cidade_destino, float diaria, int qtdDias) {
 	rent aluguel = rent(veiculo, cidade_destino, diaria, qtdDias);
 	return aluguel;	
@@ -186,7 +234,7 @@ rent alugar(car veiculo, string cidade_destino, float diaria, int qtdDias) {
 int main() {
 
 	// carrega o nome das cidades do sistema
-	vector<string> cidades {"João Pessoa", "Campina Grande", "Patos", "Souza", "Cajazeiras", "Guarabira", "Cabedelo", "Santa Rita", "Monteiro", "Sumé"};
+	vector<string> cidades {"JoÃ£o Pessoa", "Campina Grande", "Patos", "Souza", "Cajazeiras", "Guarabira", "Cabedelo", "Santa Rita", "Monteiro", "SumÃ©"};
 	
 	// Lojas
 	vector<store> lojas;
@@ -195,22 +243,22 @@ int main() {
 	lojas.emplace_back("Localiza", cidades);
 	
 	// Movida
-	vector<string> cidades_movida {"João Pessoa", "Campina Grande", "Patos", "Souza", "Cajazeiras", "Cabedelo", "Santa Rita", "Monteiro"};
+	vector<string> cidades_movida {"JoÃ£o Pessoa", "Campina Grande", "Patos", "Souza", "Cajazeiras", "Cabedelo", "Santa Rita", "Monteiro"};
 	lojas.emplace_back("Movida", cidades_movida);
 	
 	// Unidas
-	vector<string> cidades_unidas {"João Pessoa", "Campina Grande", "Patos", "Souza", "Cajazeiras"};
+	vector<string> cidades_unidas {"JoÃ£o Pessoa", "Campina Grande", "Patos", "Souza", "Cajazeiras"};
 	lojas.emplace_back("Unidas", cidades_unidas);
 	
 	// Heztz
-	vector<string> cidades_hertz {"João Pessoa", "Campina Grande", "Patos", "Souza", "Cajazeiras", "Guarabira", "Cabedelo", "Sumé"};
+	vector<string> cidades_hertz {"JoÃ£o Pessoa", "Campina Grande", "Patos", "Souza", "Cajazeiras", "Guarabira", "Cabedelo", "SumÃ©"};
 	lojas.emplace_back("Hertz", cidades_hertz);
 	
 	
 	// carrega os clientes do sistema
 	vector<client> clientes = inicializa_clientes();
 	
-	// carrega os veículos do sistema
+	// carrega os veÃ­culos do sistema
 	vector<car> veiculos = inicializa_veiculos(lojas);
 	
 	apresentacao();
@@ -223,7 +271,7 @@ int main() {
 
 		if (opcao == "1") {
 			
-			cout << endl << "Cidades disponíveis: ";
+			cout << endl << "Cidades disponÃ­veis: ";
 			for(unsigned int i = 0; i < cidades.size(); i++) {
 				if(i == cidades.size()-1) {
 					cout << cidades[i] << endl;
@@ -232,7 +280,7 @@ int main() {
 				}
 			}
 			
-			cout << "Usuarios disponíveis: ";
+			cout << "Usuarios disponÃ­veis: ";
 			for(unsigned int i = 0; i < clientes.size(); i++) {
 				if(i == clientes.size()-1) {
 					cout << clientes[i].codigo << " - " << clientes[i].nome << endl;
@@ -243,7 +291,7 @@ int main() {
 			cout << endl;
 				
 			string cidadeSaida;
-			cout << "Informe a cidade de saída: ";
+			cout << "Informe a cidade de saÃ­da: ";
 			getline(cin, cidadeSaida);
 					
 			string cidadeDestino;
@@ -258,11 +306,11 @@ int main() {
 			vector<car> carrosDisponiveis = pesquisa(cidadeSaida, cidadeDestino, qtdPassageiros, veiculos);
 					
 			if (carrosDisponiveis.empty() == true) {
-				cout << "Não existem carros disponíveis com estes critérios de pesquisa! Por favor, tente novamente com outros dados!" << endl;
+				cout << "NÃ£o existem carros disponÃ­veis com estes critÃ©rios de pesquisa! Por favor, tente novamente com outros dados!" << endl;
 				continue;
 			} else {
 				cout << "Resultado da pesquisa:" << endl << endl;
-				cout << "Código\t" << "| Modelo\t\t\t" << "| Capacidade\t" << "| Quantidade\t" << "| Diária\t" << "| Categoria\t\t" << "| Loja" << endl;
+				cout << "CÃ³digo\t" << "| Modelo\t\t\t" << "| Capacidade\t" << "| Quantidade\t" << "| DiÃ¡ria\t" << "| Categoria\t\t" << "| Loja" << endl;
 				cout << "===============================================================================================================================" << endl;
 				for(unsigned int i = 0; i < carrosDisponiveis.size(); i++) {
 					cout << carrosDisponiveis[i].codigo << "\t";
@@ -276,13 +324,13 @@ int main() {
 				cout << endl;
 				
 				string codigoCliente;
-				cout << "Para alugar, informe o código do cliente ou digite '0' para sair: ";
+				cout << "Para alugar, informe o cÃ³digo do cliente ou digite '0' para sair: ";
 				getline(cin, codigoCliente);
 				
 				if(codigoCliente == "0") continue;
 				
 				string codigoVeiculo;
-				cout << "Informe o código do veículo: ";
+				cout << "Informe o cÃ³digo do veÃ­culo: ";
 				getline(cin, codigoVeiculo);
 				
 				int qtdDias;
@@ -310,19 +358,19 @@ int main() {
 					for(unsigned int i = 0; i < clientes[index_cliente].locacoes.size(); i++) {
 						cout << "Aluguel " << i+1 << ": " << clientes[index_cliente].codigo << " - " << clientes[index_cliente].nome << " -> ";
 						cout << clientes[index_cliente].locacoes[i].veiculo.modelo << " - " << clientes[index_cliente].locacoes[i].cidade_destino << " - Quantidade de dias: " << clientes[index_cliente].locacoes[i].dias;
-						cout << " - Diária: " << setw(8) << fixed << setprecision(2) << clientes[index_cliente].locacoes[i].diaria;
+						cout << " - DiÃ¡ria: " << setw(8) << fixed << setprecision(2) << clientes[index_cliente].locacoes[i].diaria;
 						cout << " - Total: " << setw(8) << fixed << setprecision(2) << clientes[index_cliente].locacoes[i].diaria * clientes[index_cliente].locacoes[i].dias << endl << endl;
 					}
 					
 				} else {
-					cout << endl << "Não foi possível realizar o aluguel! Por favor, verifique os dados digitados." << endl;
+					cout << endl << "NÃ£o foi possÃ­vel realizar o aluguel! Por favor, verifique os dados digitados." << endl;
 				}
 				
 			}
 				
 		} else if (opcao == "2") {
 			
-			cout << "Usuarios disponíveis: ";
+			cout << "Usuarios disponÃ­veis: ";
 			for(unsigned int i = 0; i < clientes.size(); i++) {
 				if(i == clientes.size()-1) {
 					cout << clientes[i].codigo << " - " << clientes[i].nome << endl;
@@ -333,23 +381,23 @@ int main() {
 			cout << endl;
 
 			string codigoCliente;
-			cout << "Informe o código do cliente: ";
+			cout << "Informe o cÃ³digo do cliente: ";
 			getline(cin, codigoCliente);
 			
 			if(get_client_por_codigo(codigoCliente, clientes).codigo != "0" && get_client_por_codigo(codigoCliente, clientes).locacoes.size() > 0) {
 				
 				int index_cliente = get_client_indice(get_client_por_codigo(codigoCliente, clientes), clientes);
 				for(unsigned int i = 0; i < clientes[index_cliente].locacoes.size(); i++) {
-					cout << "Aluguel " << i+1 << ": " << clientes[index_cliente].codigo << " - " << clientes[index_cliente].nome << " -> " << clientes[index_cliente].locacoes[i].veiculo.modelo << " - " << clientes[index_cliente].locacoes[i].cidade_destino << " - Diária: " << setw(8) << fixed << setprecision(2) << clientes[index_cliente].locacoes[i].diaria << endl;
+					cout << "Aluguel " << i+1 << ": " << clientes[index_cliente].codigo << " - " << clientes[index_cliente].nome << " -> " << clientes[index_cliente].locacoes[i].veiculo.modelo << " - " << clientes[index_cliente].locacoes[i].cidade_destino << " - DiÃ¡ria: " << setw(8) << fixed << setprecision(2) << clientes[index_cliente].locacoes[i].diaria << endl;
 				}
 				
 				unsigned int numero_locacao;
-				cout << "Informe o número do aluguel: ";
+				cout << "Informe o nÃºmero do aluguel: ";
 				cin >> numero_locacao;
 				cin.ignore();
 				
 				if( numero_locacao < 1 || numero_locacao > get_client_por_codigo(codigoCliente, clientes).locacoes.size()) {
-					cout << endl << "Você não informou um número de locação válido!" << endl;
+					cout << endl << "VocÃª nÃ£o informou um nÃºmero de locaÃ§Ã£o vÃ¡lido!" << endl;
 					continue;
 				}
 					
@@ -358,18 +406,18 @@ int main() {
 				clientes[index_cliente].locacoes.erase(clientes[index_cliente].locacoes.begin()+numero_locacao-1);
 				veiculos[index_veiculo].quantidade += 1;
 				veiculos[index_veiculo].cidade_local = clientes[index_cliente].locacoes[numero_locacao-1].cidade_destino;
-				cout << "Devolução realizada com sucesso!" << endl;
-				cout << "Veículo " << veiculos[index_veiculo].codigo << " - " << veiculos[index_veiculo].modelo << " devolvido em " << veiculos[index_veiculo].cidade_local << endl << endl;
+				cout << "DevoluÃ§Ã£o realizada com sucesso!" << endl;
+				cout << "VeÃ­culo " << veiculos[index_veiculo].codigo << " - " << veiculos[index_veiculo].modelo << " devolvido em " << veiculos[index_veiculo].cidade_local << endl << endl;
 					
 			} else {
-				cout << "Não foi possível realizar a devolução! O cliente não existe ou não possui locações." << endl;
+				cout << "NÃ£o foi possÃ­vel realizar a devoluÃ§Ã£o! O cliente nÃ£o existe ou nÃ£o possui locaÃ§Ãµes." << endl;
 			}
 				
 		} else if (opcao == "3") {
-			cout << "você saiu do sistema!" << endl;
+			cout << "vocÃª saiu do sistema!" << endl;
 			break;
 		} else {
-			cout << "Selecione uma opção válida!" << endl;
+			cout << "Selecione uma opÃ§Ã£o vÃ¡lida!" << endl;
 		}
 		
     }

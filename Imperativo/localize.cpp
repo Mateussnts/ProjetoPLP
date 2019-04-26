@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include <cstdio>
 #include <cstdlib>
 #include <iomanip>
@@ -18,7 +18,7 @@ using namespace std;
 /*
  * Função para extrair dados do csv. retorna um mapa contendo os dados do csv.
  * file_name representa o nome do arquivo csv
- * tamanho_item representa a quantidade de itens de cada linha do csv
+ * tamanho_item representa a quantidade de itens de cada linha do csv.
  */
 vector<vector<string>> extract_csv(string file_name, int tamanho_item) {
 

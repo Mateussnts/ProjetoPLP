@@ -2,7 +2,7 @@
 import Data.List
 import System.IO
 import System.Directory
-
+-- ================= ESTRUTURAS =======================
 data Store = Store {
 	nome :: String,
 	cidades :: [String]
@@ -34,6 +34,11 @@ data Client = Client {
 	numero_aluguel :: Int,
 	locacoes :: String
 	} deriving (Show)	
-
+	
+-- metodo que aluga um carro
+alugar :: String -> String -> Int -> String
+alugar codCliente codCarro qtdDias = 
+	putStrLn "Carro alugado"
+	
 main = do
-	putStrLn ""
+	putStrLn $ aalugar "11" "16" 10

@@ -3,6 +3,22 @@ import Data.List
 import System.IO
 import System.Directory
 -- ================= ESTRUTURAS =======================
+
+main :: IO()
+main = do
+	putStrLn $ aalugar "11" "16" 10
+	
+	-- Apresentacao
+
+	putStrLn("██████╗ ███████╗███╗   ███╗    ██╗   ██╗██╗███╗   ██╗██████╗  ██████╗ ")
+	putStrLn("██╔══██╗██╔════╝████╗ ████║    ██║   ██║██║████╗  ██║██╔══██╗██╔═══██╗")
+	putStrLn("██████╔╝█████╗  ██╔████╔██║    ██║   ██║██║██╔██╗ ██║██║  ██║██║   ██║")
+	putStrLn("██╔══██╗██╔══╝  ██║╚██╔╝██║    ╚██╗ ██╔╝██║██║╚██╗██║██║  ██║██║   ██║")
+	putStrLn("██████╔╝███████╗██║ ╚═╝ ██║     ╚████╔╝ ██║██║ ╚████║██████╔╝╚██████╔╝")
+	putStrLn("╚═════╝ ╚══════╝╚═╝     ╚═╝      ╚═══╝  ╚═╝╚═╝  ╚═══╝╚═════╝  ╚═════╝ ")
+	putStrLn("À LOCALIZE CAR")
+	
+
 data Store = Store {
 	nome :: String,
 	cidades :: [String]
@@ -40,5 +56,3 @@ alugar :: String -> String -> Int -> String
 alugar codCliente codCarro qtdDias = 
 	putStrLn "Carro alugado"
 	
-main = do
-	putStrLn $ aalugar "11" "16" 10

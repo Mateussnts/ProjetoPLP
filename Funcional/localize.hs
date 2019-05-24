@@ -1,6 +1,7 @@
 import Data.List
-import System.IO
 import System.Directory
+import System.IO.Unsafe(unsafeDupablePerformIO)
+import Data.List.Split
  
 -- //////////////////////////////////////  DATA  //////////////////////////////////////
 data Car = Car {
@@ -30,35 +31,52 @@ cnh :: String,
 alugueis :: [Rent]
 } deriving (Show)
  
--- //////////////////////////////////////  CADASTRO INICIAL  //////////////////////////////////////
-carro1 = Car {nomeStore = "Loja A", cidade = "João Pessoa", codigo = "1", modelo = "BMW", quantidade = 10, capacidade = 5, diaria = 500.00, categoria = "luxo"}
-carro2 = Car {nomeStore = "Loja A", cidade = "João Pessoa", codigo = "2", modelo = "BMW2", quantidade = 5, capacidade = 2, diaria = 600.00, categoria = "luxo"}
-carro3 = Car {nomeStore = "Loja A", cidade = "João Pessoa", codigo = "3", modelo = "BMW3", quantidade = 2, capacidade = 10, diaria = 300.00, categoria = "normal"}
- 
-carro4 = Car {nomeStore = "Loja B", cidade = "Campina Grande", codigo = "1", modelo = "BMW", quantidade = 10, capacidade = 5, diaria = 500.00, categoria = "luxo"}
-carro5 = Car {nomeStore = "Loja B", cidade = "Campina Grande", codigo = "2", modelo = "BMW2", quantidade = 5, capacidade = 2, diaria = 600.00, categoria = "luxo"}
-carro6 = Car {nomeStore = "Loja B", cidade = "Campina Grande", codigo = "3", modelo = "BMW3", quantidade = 2, capacidade = 10, diaria = 300.00, categoria = "normal"}
- 
-carro7 = Car {nomeStore = "Loja C", cidade = "Cajazeiras", codigo = "1", modelo = "BMW", quantidade = 10, capacidade = 5, diaria = 500.00, categoria = "luxo"}
-carro8 = Car {nomeStore = "Loja C", cidade = "Cajazeiras", codigo = "2", modelo = "BMW2", quantidade = 5, capacidade = 2, diaria = 600.00, categoria = "luxo"}
-carro9 = Car {nomeStore = "Loja C", cidade = "Cajazeiras", codigo = "3", modelo = "BMW3", quantidade = 2, capacidade = 10, diaria = 300.00, categoria = "normal"}
- 
- 
-carrosCadastrados=[carro1, carro2, carro3, carro4, carro5, carro6, carro7, carro8, carro9]
- 
-cliente1 = Client {codigoCliente = "1", nomeClient = "Jesus", cpf = "111.111.111-25", cnh = "1000",alugueis = []}
-cliente2 = Client {codigoCliente = "2", nomeClient = "Deus", cpf = "222.111.111-25", cnh = "2000",alugueis = []}
-cliente3 = Client {codigoCliente = "3", nomeClient = "Jafeh", cpf = "333.111.111-25", cnh = "3000",alugueis = []}
-cliente4 = Client {codigoCliente = "4", nomeClient = "Judas", cpf = "444.111.111-25", cnh = "4000",alugueis = []}
-cliente5 = Client {codigoCliente = "5", nomeClient = "Meria", cpf = "555.111.111-25", cnh = "5000",alugueis = []}
- 
-clientesCadastrados = [cliente1, cliente2, cliente3, cliente4, cliente5]
+
+-- /////////// AUXILIARES //////////////////////
+carregaClientes :: [Client]
+carregaClientes = do
+  let file = unsafeDupablePerformIO (readFile "clientes.csv")
+  let lista =  ((map ( splitOn ";") (lines file))) 
+  let lista_clientes = ((map (mapeiaCliente +1)) (lista))
+  return lista_clientes !! 0
+  
+mapeiaCliente :: [String] -> Client
+mapeiaCliente lista codigo = 
+  Client { codigoCliente = (codigo),
+  nomeClient = (lista) !! 0,
+  cpf = (lista !! 1),
+  cnh = (lista !! 2),
+  alugueis = []
+  }
+
+
+carregaCarros :: [Car]
+carregaCarros = do
+  let file = unsafeDupablePerformIO (readFile "carros.csv")
+  let lista =  ((map ( splitOn ";") (lines file))) 
+  let lista_carros = ((map (mapeiaCarro +1)) (lista))
+  return lista_carros !! 0
+  
+  
+mapeiaCarro :: [String] -> Car
+mapeiaCarro lista codigo = 
+  Car { nomeStore = (lista) !! 5,
+  cidade = (lista) !! 6,
+  codigo = (codigo),
+  modelo = (lista) !! 0,
+  quantidade = read((lista) !! 1),
+  capacidade = read((lista) !! 2),
+  diaria = read((lista) !! 3),
+  categoria = (lista) !! 4}
+  
  
 -- //////////////////////////////////////  MENU  //////////////////////////////////////
 main :: IO ()
 main = do
+   let carros = carregaCarros
+   let clientes = carregaClientes
    menuPrint
-   menuOpcao
+   menuOpcao carros clientes
  
  
 menuPrint :: IO ()
@@ -71,8 +89,9 @@ menuPrint = do
    putStrLn "╚═════╝ ╚══════╝╚═╝     ╚═╝      ╚═══╝  ╚═╝╚═╝  ╚═══╝╚═════╝  ╚═════╝ "
  
  
-menuOpcao :: IO()
-menuOpcao = do
+menuOpcao :: [Car] -> [Client] -> IO()
+menuOpcao carros clientes = do
+   
    putStrLn "À LOCALIZE CAR"
    putStrLn "O que você deseja fazer?"
    putStrLn "(1) Pesquisar/Alugar"
@@ -108,15 +127,22 @@ alugar = do
    opcao <- getLine
    if (read opcao) == 2 then do {putStrLn "ok! voltemos ao menu principal" ; menuOpcao} else putStrLn "Vamos lá então!"
    do {alugarCarro}
+     
    
 alugarCarro :: IO()
 alugarCarro = do
-   putStrLn "==> to aqui "
+    putStrLn "Para alugar, informe o código do cliente"
+    codigoCliente <- getLine
+    putStrLn "Informe o código do veículo"
+    codigoVeiculo <- getLine
+    putStrLn "Informe a quantidade de dias para alugar"
+--  qtdDias <- getLine
+    
    
- 
+
 novaPesquisa :: IO()
 novaPesquisa = do
-   putStrLn "==> Digite a CIDADE DE DESTINO: "
+   putStrLn "==>  Digite a CIDADE DE DESTINO: "
    cidadeDestino <- getLine
    putStrLn "==> Digite a CIDADE DE PARTIDA: "
    cidadePartida <- getLine

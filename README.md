@@ -25,4 +25,3 @@ Devolver: o usuário informa o código do usuário e o código do aluguel, o car
 - Jailson Campos
 - João Barbosa
 - Enzo Candido
-- Plínio Neto

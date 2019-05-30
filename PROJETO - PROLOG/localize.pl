@@ -12,7 +12,7 @@ opcao(1) :-
 opcao(2) :- writeln("VAMOS DEVOLVER O CARRO"),
 			write("Devolver").
 
-opcao(0) :- halt.
+opcao(3) :- halt.
 
 opcao(X) :- writeln("Opcao invalida, tente outra!").
 				

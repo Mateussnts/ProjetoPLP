@@ -22,13 +22,13 @@ menuOpcoes() :-
 	writeln("3 - Sair"),
 	writeln("\nOpcao: "),
 	read(A),
-	opcao(A).
+	opcao(A),
+	menuOpcoes().
 		
 main :-
 	menu(),	
 	menuOpcoes().
 
 listarCarros(X) :- 
-	writeln("==>LISTAR CARROS<=="), 
-	menuOpcoes().
+	writeln("==>LISTAR CARROS<==").
 	

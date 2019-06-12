@@ -44,6 +44,7 @@ opcao(3) :- halt.
 opcao(_) :- writeln("Opcao invalida, tente outra!").
 				
 menuOpcoes() :-  	
+	writeln(" "),
 	writeln("1 - Pesquisar/Alugar"),
 	writeln("2 - Devolver"),
 	writeln("3 - Sair"),
@@ -56,12 +57,12 @@ main :-
 	menu(),	
 	menuOpcoes().
 
-listarCarros([], _).
-	listarCarros([Head|Tail], Codigo) :-
-	car(_,Head,Qtd,Cap,Dia, Cat, Loja, Cidade),
-	write(Codigo),
-	write(" - "),
+listarCarros([]).
+	listarCarros([Head|Tail]) :-
+	car(Head,Nome,Qtd,Cap,Dia, Cat, Loja, Cidade),
 	write(Head),
+	write(" - "),
+	write(Nome),
 	write(" - "),
 	write(Qtd),
 	write(" - "),
@@ -74,11 +75,29 @@ listarCarros([], _).
 	write(Loja),
 	write(" - "),
 	writeln(Cidade),
-	Codigo1 is Codigo + 1, 
-	listarCarros(Tail, Codigo1).
-
+	 
+	listarCarros(Tail).
+	
 imprimeCarros() :-
 	writeln( "Código | Modelo | Capacidade | Quantidade | Diária | Categoria | Loja"),
-	findall(Nome, car(_,Nome,Qtd,_,_,_,_,_), Carros),
-	listarCarros(Carros, 1). 
+	findall(Codigo, car(Codigo,_,_,_,_,_,_,_), Carros),
+	listarCarros(Carros), menuAlugar. 
+
+opcaoAlugar(1) :-
+	opcao(1).
+opcaoAlugar(2) :-
+	writeln("Alugando...").
+opcaoAlugar(3) :-
+	halt.
+opcaoAlugar(_) :-
+	writeln("Opcao invalida, tente outra!"),
+	menuAlugar.
 	
+menuAlugar :-
+	writeln("O que deseja fazer? "),
+	writeln("1 - Nova pesquisa"),
+	writeln("2 - Alugar"),
+	writeln("3 - Sair"),
+	writeln("\nOpcao: "),
+	read(A),
+	opcaoAlugar(A).	

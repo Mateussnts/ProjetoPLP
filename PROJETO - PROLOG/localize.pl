@@ -83,10 +83,26 @@ imprimeCarros() :-
 	findall(Codigo, car(Codigo,_,_,_,_,_,_,_), Carros),
 	listarCarros(Carros), menuAlugar. 
 
+opcaoAluga(1) :-
+	writeln("Digite o código do Usuário: "), read(UsuarioX),
+	writeln("Digite o código do Veículo: "),read(VeiculoY),
+	writeln("Digite a quantidade de dias para alugar: "), read(DiasZ).
+opcaoAluga(2) :-
+	writeln(""),
+	main().
+opcaoAluga(_) :-
+	writeln("Opcao invalida, tente outra!"), nl,
+	opcaoAlugar(2).
+	
 opcaoAlugar(1) :-
 	opcao(1).
 opcaoAlugar(2) :-
-	writeln("Alugando...").
+	writeln("Deseja alugar algum dos carros? "),
+	writeln("(1) SIM"),
+	writeln("(2) NÃO"),
+	writeln("\nOpcao: "),
+	read(J),
+	opcaoAluga(J).
 opcaoAlugar(3) :-
 	halt.
 opcaoAlugar(_) :-
